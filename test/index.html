@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Nuy minimalistic charting library</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body, html {
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-grey-lighter" onresize="resize()">
+    <center>
+        <h1 class="mt-16 text-grey-darker">The nuy charting library</h1>
+    </center>
+    <div class="my-16 container mx-auto">
+        <div class="flex">
+            <div class="w-full md:w-1/2 p-8 rounded shadow-lg bg-white md:mr-2">
+                <div id="chart" style="height: 50px"></div>
+                <div id="chart2" style="height: 50px"></div>
+                <div id="chart3" style="height: 50px"></div>
+            </div>
+            <div class="w-full flex items-end  md:w-1/2 rounded shadow-lg bg-white md:ml-2">
+                <div class="flex-auto mx-4" id="chart4" style="height: 150px"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../dist/nuy.js"></script>
+    <script>
+        var chart = new Nuy('chart')
+            .progress()
+            .value(25)
+            .render();
+        var chart2 = new Nuy('chart2')
+            .progress()
+            .color('#E3342F')
+            .value(50)
+            .render();
+        var chart3 = new Nuy('chart3')
+            .progress()
+            .indeterminate(true)
+            .render();
+
+        var chart4 = new Nuy('chart4').multi();
+
+        var ds = chart4.barDataset([1, 2, 2, 1, 2]).color('red');
+        var ds3 = chart4.barDataset([4, 1, 4, 3, 3]);
+        var ds4 = chart4.lineDataset([2, 5, 3, 4, 5]).color('#ffC000').area(true);
+
+        chart4.render();
+
+        setTimeout(function () {
+            ds.data([1, 1, 2, 1, 2]);
+            ds4.data([2, 5, 4, 4, 5]);
+        }, 2000);
+
+        function resize() {
+            chart4.reRender();
+        }
+    </script>
+</body>
+</html>
